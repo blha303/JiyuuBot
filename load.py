@@ -28,16 +28,6 @@ class PluginMan:
         t.daemon = 1
         t.start()
 
-
-    def display_help(self, command=None):
-        cmdlist = "Available commands: "
-        for keys in self.commandlist.keys():
-            cmdlist += ".%s " % keys
-        self.conman.privmsg(cmdlist)
-        if not command == None:
-            #do something
-            pass
-
     def map_help(self, command, message):
         self.helplist[command] = message
 
@@ -51,7 +41,7 @@ class PluginMan:
 
     def __init__(self):
         self.modulespath = os.path.join(os.path.dirname(__file__), "modules") + os.sep
-        self.commandlist = {"help": self.display_help, "reload": self.load}
-        self.helplist = {"reload": "reloads modules"}
+        self.commandlist = {"reload": self.load}
+        self.helplist = {"reload": ".reload - reloads modules"}
         self.conman = connect.ConnectionMan()
         self.load()

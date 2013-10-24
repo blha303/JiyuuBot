@@ -6,3 +6,4 @@ def queue(self, command):
     self.conman.privmsg(queuestr)
 
 self.map_command("queue", queue)
+self.map_help("queue", ".queue - displays the next 4 queued songs")
