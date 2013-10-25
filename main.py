@@ -3,10 +3,13 @@ import load
 import os
 import sys
 
+#Load config file from config.py
 exec(open(os.path.join(os.path.dirname(__file__), "config.py"), "r").read())
 
+#initialize plugin manager and load plugins
 plugman = load.PluginMan()
 
+#connect to irc server
 print "*** Connecting... ***"
 while 1:
     line = plugman.conman.s.recv(2048)
@@ -17,6 +20,7 @@ while 1:
     else:
 	print line
 
+#Main active loop
 while 1:
     try:
         line = plugman.conman.s.recv(2048)
