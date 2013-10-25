@@ -34,14 +34,16 @@ class PluginMan:
     def map_command(self, command, function):
         self.commandlist[command] = function
 
-    def load(self, wut=None):
+    def load(self, wut=None, wuty=None):
+        #not in __init__ so that .reload removes entries for old modules
+        self.commandlist = {"reload": self.load}
+        self.helplist = {"reload": ".reload - reloads modules"}
         pluginlist = glob.glob(self.modulespath + "*.py")
         for plugin in pluginlist:
             exec(open(plugin, "r").read())
+        self.conman.privmsg("Successfully loaded %s modules" % len(pluginlist))
 
     def __init__(self):
         self.modulespath = os.path.join(os.path.dirname(__file__), "modules") + os.sep
-        self.commandlist = {"reload": self.load}
-        self.helplist = {"reload": ".reload - reloads modules"}
         self.conman = connect.ConnectionMan()
         self.load()

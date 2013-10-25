@@ -4,7 +4,12 @@ def display_help(self, command):
         cmdlist += ".%s " % keys
     self.conman.privmsg(cmdlist)
     if not command == "":
-        self.conman.privmsg(self.helplist[command])
+        if command.startswith("."):
+            command = command[1:]
+        try:
+            self.conman.privmsg(self.helplist[command])
+        except:
+            self.conman.privmsg("Help for %s not available" % command)
 
 self.map_command("help", display_help)
 self.map_help("help", ".help - displays help")
