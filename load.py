@@ -21,8 +21,10 @@ class ConfigMan:
                 if line.startswith("%s = " % valname):
                     value = line
                     break
-            exec(value)
-            exec("return %s" % valname)
+            if not value == "":
+                return value[value.index("=")+1:]
+            else:
+                raise Exception
         except:
             self.set_value(modname, valname, default)
             return default
@@ -38,7 +40,10 @@ class ConfigMan:
         except:
             pass
         config = open("%s%s%s.py" % (self.configpath, os.sep, modname), "w")
-        newconfig += "%s = \"%s\"\n" % (valname, value)
+        if type(value) == str:
+            newconfig += "%s = \"%s\"\n" % (valname, value)
+        else:
+            newconfig += "%s = %s\n" % (valname, value)
         config.write(newconfig)
         config.flush()
         config.close()
