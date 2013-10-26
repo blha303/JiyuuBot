@@ -4,7 +4,7 @@ import mpd
 import threading
 
 #Load config file from config.py
-exec(open(os.path.join(os.path.dirname(__file__), "config.py"), "r").read())
+exec(open(os.path.join(os.path.dirname(__file__), "configs" + os.sep + "config.py"), "r").read())
 
 class ConfigMan:
     def __init__(self, conftype):
