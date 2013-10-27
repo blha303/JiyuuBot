@@ -5,7 +5,10 @@ def current(self, lel):
         time = "%d:%d" % (m, s)
     else:
         time = "N/A"
-    parse = currentTrack.get('artist',"N/A") + " - " + currentTrack.get('album',"N/A") + " - " + currentTrack.get('title',"N/A") + " - " + time
+    title = currentTrack.get('title',"N/A")
+    if title == "N/A":
+        title = os.path.basename(currentTrack.get("file", "N/A")).replace(" - ", " ")
+    parse = currentTrack.get('artist',"N/A") + " - " + currentTrack.get('album',"N/A") + " - " + title + " - " + time
     self.conman.privmsg(parse)
 
 self.map_command("current", current)
