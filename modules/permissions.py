@@ -20,11 +20,14 @@ def access(self, arg, nick, level="100")
     if arg == "add":
         self.addAccess(nick, level)
     elif arg == "rm":
-        rmAccess(nick)
+        self.rmAccess(nick)
     else:
         return "Invalid sub-command"
 
 
+self.accesslvl = accesslvl
+self.rmAccess = rmAccess
+self.addAccess = addAccess
 self.map_command("access", access)
 self.map_command("commandlevel", cmdLevel)
 self.map_help("access", ".access: add - adds a user with specified access level. rm - sets specified user's access to 0")
