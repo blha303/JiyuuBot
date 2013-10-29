@@ -1,6 +1,6 @@
 import os
-import glob
 import mpd
+import glob
 import threading
 
 #Load config file from config.py
