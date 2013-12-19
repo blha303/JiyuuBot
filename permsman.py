@@ -1,5 +1,3 @@
-
-
 from configman import *
 
 class PermsMan:
@@ -38,7 +36,7 @@ class PermsMan:
             Exception("Permissions config files malformed: Permission values must be integers in between 0 and 999")
 
     def get_cmd_perms(self, command):
-        return self.conman.get_value("command", command, 100, False)
+        return self.confman.get_value("command", command, 100, False)
 
     def get_nick_perms(self, nick):
-        return self.conman.get_value("nick", nick, 100, False)
+        return self.confman.get_value("nick", nick, 100, False)
