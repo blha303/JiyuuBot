@@ -7,13 +7,13 @@ def get_perm_nick(self, args):
 
 def get_perm_argparser(self, args):
     args = args.split(" ")
-    if args[1] == "nick":
-        self.get_perm_nick(self, args[2])
+    if args[0] == "nick":
+        self.get_perm_nick(self, args[1])
 
 def set_perm_argparser(self, args):
     args = args.split(" ")
-    if args[1] == "nick":
-        self.get_perm_nick(self, args[2], args[3])
+    if args[0] == "nick":
+        self.get_perm_nick(self, args[1], args[2])
 
 self.get_perm_nick = get_perm_nick
 self.set_perm_nick = set_perm_nick
