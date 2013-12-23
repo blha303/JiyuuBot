@@ -7,14 +7,12 @@ def get_perm_argparser(self, args):
 
 def set_perm_argparser(self, args):
     args = args.split(" ")
-    nick = args[1]
-    lvl = args[2]
     if args[0] == "nick":
-        self.conman.privmsg("Setting permission level for %s: %s" % (nick, lvl))
-        self.permsman.set_nick_perms(nick, lvl)
+        self.conman.privmsg("Setting permission level for %s: %s" % (args[1], args[2]))
+        self.permsman.set_nick_perms(args[1], args[2])
     elif args[0] == "cmd":
-        self.conman.privmsg("Setting permission level for %s: %s" % (cmd, lvl))
-        self.permsman.set_cmd_perms(cmd, lvl)
+        self.conman.privmsg("Setting permission level for %s: %s" % (args[1], args[2]))
+        self.permsman.set_cmd_perms(args[1], args[2])
 
 self.map_command("getperm", get_perm_argparser, False)
 self.map_command("setperm", set_perm_argparser, False)
