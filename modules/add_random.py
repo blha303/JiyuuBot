@@ -13,7 +13,7 @@ def add_random(self, command):
         filepath = ""
         while 1:
             filepath = filelist[random.randint(0, len(filelist)-1)]
-            if not filepath.endswith(".m3u") and not filepath in selected_songs:
+            if not filepath.endswith(".m3u") and not filepath in selected_songs and not NICK + "_intros" + os.sep in filepath:
                 break
         selected_songs.append(filepath)
         try:
