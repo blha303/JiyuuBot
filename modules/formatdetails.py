@@ -9,4 +9,4 @@ def format_song_details(self, uri):
     parse = info['artist'] + " - " + info['album'] + " - " + title + " - " + time
     return parse
 
-self.format_song_details = format_song_details
+self.reg_func("format_song_details", format_song_details)
