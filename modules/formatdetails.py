@@ -9,6 +9,8 @@ def format_song_details(self, uri):
                 infodict["time"] = str(datetime.timedelta(seconds=int(info["time"])))
                 if infodict["time"].startswith("0:"):
                     infodict["time"] = infodict["time"][2:]
+                if infodict["time"].startswith("0"):
+                    infodict["time"] = infodict["time"][1:]
             else:
                 infodict[key] = info[key]
         except:
