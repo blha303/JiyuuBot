@@ -6,6 +6,8 @@ def add_tracks(self, arg):
         rand = random.randint(0, len(matches)-1)
         self.conman.privmsg("Adding %s" % matches[rand]["file"])
         self.conman.mpc.add(matches[rand]["file"])
+    elif len(matches) == 0:
+        self.conman.privmsg("No songs matching \"%s\"" % arg)
     else:
         self.conman.mpc.add(matches[0]["file"])
 
