@@ -10,7 +10,8 @@ There needs to be a folder in your music path called "[nick]\_intros" containing
 2. Install MPD and the MPD-Python bindings
 
  ```sh
-  yum install mpd python-mpd
+  yum install mpd python-pip
+  pip install python-mpd2
  ```
 3. Create MPD user and create associated directories
 
