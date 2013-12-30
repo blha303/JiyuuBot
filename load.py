@@ -49,7 +49,7 @@ class PluginMan:
 
     def require(self, module):
         if not module in self.loadedplugins:
-            Exception("Module %s not loaded" %s module)
+            Exception("Module %s not loaded" % module)
 
 	#Define function to load modules
     def load(self, wut=None, wuty=None):
