@@ -7,11 +7,13 @@ def format_song_details(self, uri):
             if key == "time":
                 import datetime
                 infodict["time"] = str(datetime.timedelta(seconds=int(info["time"])))
+                if infodict["time"].startswith("0:"):
+                    infodict["time"] = infodict["time"][2:]
             else:
                 infodict[key] = info[key]
         except:
             pass
-    parse = infodict["artist"] + " - " + infodict["album"] + " - " + infodict["title"] + " - " + infodict["time"]
+    parse = "%s - %s - %s - %s" % (infodict["artist"], infodict["album"], infodict["title"], infodict["time"])
     return parse
 
 self.reg_func("format_song_details", format_song_details)
