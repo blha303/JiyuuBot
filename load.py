@@ -55,7 +55,7 @@ class PluginMan:
 
     def require(self, func):
         if not func in self.funcs.keys():
-            Exception("Module %s not loaded" % module)
+            Exception("Module %s not loaded" % func)
 
 	#Define function to load modules
     def load(self, wut=None, wuty=None):

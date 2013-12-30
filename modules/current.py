@@ -1,5 +1,5 @@
 def current(self, lel):
-    self.require("formatdetails.py")
+    self.require("format_song_details")
     currentTrack = self.conman.mpc.currentsong()
     self.conman.privmsg(self.funcs["format_song_details"](self, currentTrack["file"]))
 
