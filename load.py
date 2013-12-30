@@ -49,13 +49,13 @@ class PluginMan:
 
     def reg_func(self, name, func):
         if name in self.funcs.keys():
-            Exception("Function %s already registered" % name)
+            raise Exception("Function %s already registered" % name)
         else:
             self.funcs[name] = func
 
     def require(self, func):
         if not func in self.funcs.keys():
-            Exception("Module %s not loaded" % func)
+            raise Exception("Module %s not loaded" % func)
 
 	#Define function to load modules
     def load(self, wut=None, wuty=None):
