@@ -6,7 +6,7 @@ def format_song_details(self, uri):
         try:
             if key == "time":
                 import datetime
-                infodict["time"] = datetime.timedelta(seconds=int(info["time"]))
+                infodict["time"] = str(datetime.timedelta(seconds=int(info["time"])))
             else:
                 infodict[key] = info[key]
         except:
