@@ -19,6 +19,9 @@ class ConnectionMan:
             self.s = ssl.wrap_socket(socket.socket( ))
         else:
             self.s = socket.socket( )
+        self.connect_irc()
+
+    def connect_irc(self):
         self.s.connect((HOST, PORT))
         self.s.send("USER " + NICK + " " + NICK + " " + NICK + " :" + NICK + "\n")
         self.s.send("NICK " + NICK + "\r\n")
@@ -46,14 +49,6 @@ class ConnectionMan:
 
 	time.sleep(1) # allows chan join to complete before messages are sent
 
-	#Define private message function
-    def privmsg(self, text):
-        self.s.send("PRIVMSG " + HOME_CHANNEL + " :\r\n")
-        #can only send 5 lines at a time on Rizon before being kicked for flood
-        text=str(text)
-        for msg in text.split("\n"):
-            self.s.send("PRIVMSG " + HOME_CHANNEL + " :" + str(msg) + "\r\n")
-	
 	#Define reconnect function
     def reconnect_mpd(self):
         try:
@@ -61,3 +56,18 @@ class ConnectionMan:
         except mpd.ConnectionError:
             pass
         self.mpc.connect(MPD_HOST, MPD_PORT)
+
+    def reconnect_irc(self):
+        try:
+            self.s.close()
+        except:
+            pass
+        self.connect_irc()
+
+	#Define private message function
+    def privmsg(self, text):
+        self.s.send("PRIVMSG " + HOME_CHANNEL + " :\r\n")
+        #can only send 5 lines at a time on Rizon before being kicked for flood
+        text=str(text)
+        for msg in text.split("\n"):
+            self.s.send("PRIVMSG " + HOME_CHANNEL + " :" + str(msg) + "\r\n")
