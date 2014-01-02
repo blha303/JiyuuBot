@@ -14,14 +14,15 @@ class ConnectionMan:
         self.mpc = mpd.MPDClient()
         self.mpc.connect(MPD_HOST, MPD_PORT)
 
+        self.connect_irc()
+
+    def connect_irc(self):
 	#If SSL is enabled use ssl
         if(SSL):
             self.s = ssl.wrap_socket(socket.socket( ))
         else:
             self.s = socket.socket( )
-        self.connect_irc()
 
-    def connect_irc(self):
         self.s.connect((HOST, PORT))
         self.s.send("USER " + NICK + " " + NICK + " " + NICK + " :" + NICK + "\n")
         self.s.send("NICK " + NICK + "\r\n")
@@ -62,6 +63,7 @@ class ConnectionMan:
             self.s.close()
         except:
             pass
+        self.s = None
         self.connect_irc()
 
 	#Define private message function
