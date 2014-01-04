@@ -11,7 +11,7 @@ exec(open(os.path.join(os.path.dirname(__file__), "configs" + os.sep + "config.p
 
 #define Plugin Manager class
 class PluginMan:
-    def trywrapper(self, command, arg, source):
+    def trywrapper(self, command, arg, source="PRIVMSG"):
         thread_types[threading.current_thread().ident] = source
         if source == "HTTP":
             commlist = self.httplist
