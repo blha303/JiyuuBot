@@ -28,7 +28,7 @@ class httpd_api:
                 if line.startswith("GET"):
                     print line
                     print addr
-                    print time.strftime("%Y-%m-%d %H:%M:%S"))
+                    print time.strftime("%Y-%m-%d %H:%M:%S")
                     path = line.split(" ")[1]
                     break
             path = urllib.unquote_plus(path[1:])
