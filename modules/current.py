@@ -3,6 +3,8 @@ def current(self, lel):
     currentTrack = self.conman.mpc.currentsong()
     tosend = self.run_func("format_song_details", [currentTrack["file"]])
     if thread_types[threading.current_thread().ident] == "HTTP":
+        import math
+        tosend["elapsed"] = math.floor(float(self.conman.mpc.status()["elapsed"]))
         tosend = json.dumps(currentTrack, sort_keys=True, indent=4, separators=(',', ': '))
     self.conman.gen_send(tosend)
 
