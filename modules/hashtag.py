@@ -1,5 +1,5 @@
 def hashtag(self, message):
-    message = re.findall("\s*\#(\w+)\s*", message)
+    message = re.findall(".*\#(\w+).*", message)
     for tag in message:
         reg_tags = self.confman.get_value("hash", "REG_TAGS", {})
         if tag in reg_tags.keys():
@@ -15,6 +15,6 @@ def add_hash(self, command):
     else:
         self.conman.gen_send("#%s already mapped" % command[0])
 
-self._map("regex", "\s*\#\w+\s*", hashtag)
+self._map("regex", ".*\#\w+.*", hashtag)
 self._map("command", "addhash", add_hash)
 self._map("help", "addhash", ".addhash - Adds hastag")
