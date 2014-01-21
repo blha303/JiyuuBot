@@ -35,7 +35,7 @@ def git(self, message):
             filepath = "/".join(match[4:])
             self.conman.gen_send("Github: %s on branch %s - %s - by %s" % (filepath, branch, match[1], match[0]))
         elif match[2] == "commit":
-            req = requests.get("https://api.github.com/repos/%s/%s/%ss/%s").json()
+            req = requests.get("https://api.github.com/repos/%s/%s/%ss/%s" % tuple(match)).json()
             self.conman.gen_send("Github: Commit %s on %s/%s - %s - by %s - %s" % (req["sha"], match[0], match[1], req["message"], req["author"]["name"], req["commiter"]["date"].split("T")[0]))
 
 self._map("regex", ".*https?://(www\.)?github.com/.*", git)
