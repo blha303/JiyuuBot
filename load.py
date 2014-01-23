@@ -20,6 +20,7 @@ class PluginMan:
     def trywrapper(self, command, arg, source):
         if source["type"] == "HTTP":
             commlist = self.httplist
+            source["prefix"] = ""
         elif source["type"] == "regex":
             commlist = self.regex
         else:
