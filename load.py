@@ -20,13 +20,13 @@ class PluginMan:
     def trywrapper(self, command, arg, source):
         if source["type"] == "HTTP":
             commlist = self.httplist
-            source["prefix"] = ""
         elif source["type"] == "regex":
             commlist = self.regex
         else:
             commlist = self.commandlist
         try:
-            source["prefix"] = commlist[command]["prefix"]
+            if not source["type"] == "HTTP":
+                source["prefix"] = commlist[command]["prefix"]
             thread_types[threading.current_thread().ident] = source
             commlist[command]["function"](self, arg)
         except Exception as e:
