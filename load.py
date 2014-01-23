@@ -25,8 +25,7 @@ class PluginMan:
         else:
             commlist = self.commandlist
         try:
-            if not source["type"] == "HTTP":
-                source["prefix"] = commlist[command]["prefix"]
+            source["prefix"] = commlist[command]["prefix"]
             thread_types[threading.current_thread().ident] = source
             commlist[command]["function"](self, arg)
         except Exception as e:
@@ -62,7 +61,7 @@ class PluginMan:
         if maptype == "command":
             self.commandlist[command] = {"function": function, "prefix": prefix}
         elif maptype == "http":
-            self.httplist[command] = function
+            self.httplist[command] = {"function": function, "prefix": ""}
         elif maptype == "alias":
             if not type(command) == str:
                 raise Exception("Alias mapping must be to a string")
