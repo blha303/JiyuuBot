@@ -5,8 +5,8 @@ def wikipedia(self, string):
     for match in matches:
         categories = requests.get("http://%s.wikipedia.org/w/api.php?action=query&prop=categories&format=json&cllimit=10&cldir=descending&titles=%s&redirects=" % match, headers={"user-agent": UA}).json()["query"]["pages"]
         if "missing" in categories.keys():
-            self.conman.gensend("Page not found")
+            self.conman.gen_send("Page not found")
         else:
-            self.conman.gensend("%s | Categories: %s" % (categories["title"], ", ".join(x["title"].replace("Categories:", "") for x in categories["categories"])))
+            self.conman.gen_send("%s | Categories: %s" % (categories["title"], ", ".join(x["title"].replace("Categories:", "") for x in categories["categories"])))
 
 self._map("regex", ".*\w+.wikipedia.org/wiki/\w+.*", wikipedia, "Wikipedia")
