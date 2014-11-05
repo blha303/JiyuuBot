@@ -19,7 +19,7 @@ def add_hash(self, msginfo):
 
 def del_hash(self, msginfo):
     reg_tags = self.confman.get("hash", "REG_TAGS", {})
-    command = msginfo["msg"].strip().lower().replace("#", "")
+    command = msginfo["msg"].split(" ")[1].lower().replace("#", "")
     try:
         del reg_tags[command]
         self.confman.setv("hash", "REG_TAGS", reg_tags)
