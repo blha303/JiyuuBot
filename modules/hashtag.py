@@ -38,6 +38,6 @@ self.commandlist["addhash"] = {
         }
 self.permsman.suggest_cmd_perms("delhash", 300)
 self.commandlist["delhash"] = {
-        "type": MAPTYPE_COMMAND.
+        "type": MAPTYPE_COMMAND,
         "function": del_hash
         }
