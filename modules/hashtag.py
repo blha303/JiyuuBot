@@ -25,7 +25,7 @@ def del_hash(self, msginfo):
         self.confman.setv("hash", "REG_TAGS", reg_tags)
         self.conman.gen_send("#%s deleted" % command, msginfo)
     except KeyError:
-        self.conman.gen_send("#%s does not exist" % command. msginfo)
+        self.conman.gen_send("#%s does not exist" % command, msginfo)
 
 self.commandlist[".*\#\w+.*"] = {
         "type": MAPTYPE_REGEX,
