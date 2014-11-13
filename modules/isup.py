@@ -9,10 +9,10 @@ def isup(self, msginfo):
             domain, port = domain_split[0], int(domain_split[1]) if len(domain_split) > 1 else 80
             host = socket.gethostbyname(domain)
         except socket.gaierror:
-            self.conman.gen_send("Couldn't resolve %s to IP" % (domain))
+            self.conman.gen_send("Couldn't resolve %s to IP" % domain, msginfo)
             continue
         except ValueError:
-            self.conman.gen_send("Couldn't get port number from %s" % domain)
+            self.conman.gen_send("Couldn't get port number from %s" % domain, msginfo)
             continue
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(1)
@@ -20,13 +20,13 @@ def isup(self, msginfo):
             s.connect((host, port))
         except socket.error as e:
             if e.strerror == "Connection refused":
-                self.conman.gen_send("Port %s doesn't appear to be open on %s (%s)" % (str(port), domain, host))
+                self.conman.gen_send("Port %s doesn't appear to be open on %s (%s)" % (str(port), domain, host), msginfo)
             else:
-                self.conman.gen_send("Connection to %s:%s (%s) failed: %s" % (domain, str(port), host, e.strerror))
+                self.conman.gen_send("Connection to %s:%s (%s) failed: %s" % (domain, str(port), host, e.strerror), msginfo)
         except socket.timeout:
-            self.conman.gen_send("%s (%s) timed out" % (domain, host))
+            self.conman.gen_send("%s (%s) timed out" % (domain, host), msginfo)
         else:
-            self.conman.gen_send("%s:%s (%s) is reachable!" % (domain, str(port), host))
+            self.conman.gen_send("%s:%s (%s) is reachable!" % (domain, str(port), host), msginfo)
         finally:
             s.close()
 
