@@ -18,7 +18,7 @@ def isup(self, msginfo):
         s.settimeout(1)
         try:
             s.connect((host, port))
-        except socket.error, e:
+        except socket.error as e:
             if e.strerror == "Connection refused":
                 self.conman.gen_send("Port %s doesn't appear to be open on %s (%s)" % (str(port), domain, host))
             else:
