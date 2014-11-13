@@ -1,16 +1,34 @@
 def isup(self, msginfo):
     domains = msginfo["msg"].split(" ")[1:]
-    import requests
+    import socket
     for domain in domains:
         domain = re.sub(".*://", "", domain)
         domain = domain.split("/")[0]
-        info = requests.get("http://isitup.org/%s.json" % domain).json()
-        if info["status_code"] == 1:
-            self.conman.gen_send("%s (%s) is up - %sms" % (info["domain"], info["response_ip"], str(float(info["response_time"]) * 1000).split(".")[0]), msginfo)
-        elif info["status_code"] == 2:
-            self.conman.gen_send("%s (%s) is down" % (info["domain"], info["response_ip"]), msginfo)
-        elif info["status_code"] == 3:
-            self.conman.gen_send("%s doesn't appear to exist" % info["domain"], msginfo)
+        try:
+            domain_split = domain.split(":")
+            domain, port = domain_split[0], int(domain_split[1]) if len(domain_split) > 1 else 80
+            host = socket.gethostbyname(domain)
+        except socket.gaierror:
+            self.conman.gen_send("Couldn't resolve %s to IP" % (domain))
+            continue
+        except ValueError:
+            self.conman.gen_send("Couldn't get port number from %s" % domain)
+            continue
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(1)
+        try:
+            s.connect((host, port))
+        except socket.error, e:
+            if e.strerror == "Connection refused":
+                self.conman.gen_send("Port %s doesn't appear to be open on %s (%s)" % (str(port), domain, host))
+            else:
+                self.conman.gen_send("Connection to %s:%s (%s) failed: %s" % (domain, str(port), host, e.strerror))
+        except socket.timeout:
+            self.conman.gen_send("%s (%s) timed out" % (domain, host))
+        else:
+            self.conman.gen_send("%s:%s (%s) is reachable!" % (domain, str(port), host))
+        finally:
+            s.close()
 
 self.commandlist["isup"] = {
         "type": MAPTYPE_COMMAND,
