@@ -26,7 +26,7 @@ def git_get_name(self, userdict, from_osrc=False):
 
 def git(self, msginfo):
     import requests
-    matches = re.findall("github.com/(.+[^\s#?])", msginfo["msg"])
+    matches = re.findall("github.com/(.+[^\s#[^\s]+])", msginfo["msg"])
 
     for match in matches:
         match = match.split("/")
